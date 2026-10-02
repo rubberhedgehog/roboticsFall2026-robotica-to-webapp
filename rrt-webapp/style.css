@@ -1,0 +1,107 @@
+/* Layout: controls on the left, canvas on the right (ControlPlacement -> Left in the original Manipulate). */
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: #f4f2ee;
+  color: #222;
+}
+
+header {
+  padding: 14px 22px 8px;
+  border-bottom: 1px solid #ddd8cf;
+}
+
+header h1 { margin: 0 0 4px; font-size: 22px; font-weight: 600; }
+header .credit { margin: 0; font-size: 12px; color: #777; }
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+  padding: 20px 22px;
+  align-items: flex-start;
+}
+
+#controls {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 230px;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid #ddd8cf;
+  border-radius: 8px;
+}
+
+.ctl-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.ctl-group select,
+.ctl-group input[type="range"] {
+  width: 100%;
+}
+
+.btn-row { display: flex; gap: 5px; flex-wrap: wrap; }
+.btn-row + .btn-row { margin-top: 6px; }
+
+.btn-row button {
+  flex: 1 1 auto;
+  min-width: 34px;
+  padding: 6px 4px;
+  font-size: 13px;
+  background: #e8d8c4;
+  border: 1px solid #b9a88f;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.btn-row button:hover { background: #dcc7ab; }
+.btn-row button:active { transform: translateY(1px); }
+
+#toggleAuto.active { background: #1B4332; color: #e8d8c4; border-color: #1B4332; }
+
+.hint { font-size: 11.5px; color: #666; line-height: 1.45; font-weight: 400; }
+
+.legend { font-size: 11.5px; color: #555; border-top: 1px solid #eee; padding-top: 10px; }
+.legend div { margin: 3px 0; }
+.legend .sw {
+  display: inline-block; width: 10px; height: 10px;
+  border-radius: 2px; margin-right: 6px; vertical-align: -1px;
+}
+
+#stage { position: relative; }
+
+#status {
+  font-size: 15px;
+  margin-bottom: 8px;
+  min-height: 20px;
+}
+#status.reached { color: #1B4332; font-weight: 600; }
+
+#board {
+  background: #fff;
+  border: 1px solid #ddd8cf;
+  border-radius: 6px;
+  touch-action: none;
+  cursor: default;
+}
+#board.dragging { cursor: grabbing; }
+
+#tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: #222;
+  color: #fff;
+  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  transform: translate(-50%, -130%);
+  white-space: nowrap;
+  display: none;
+}

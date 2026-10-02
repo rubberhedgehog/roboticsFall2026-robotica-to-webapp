@@ -1,0 +1,527 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 14.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     24478,        518]
+NotebookOptionsPosition[     23833,        496]
+NotebookOutlinePosition[     24503,        519]
+CellTagsIndexPosition[     24460,        516]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`cost$$ = {}, $CellContext`explorationBias$$ \
+= 0, $CellContext`finalGoal$$ = {18, -18}, $CellContext`finalGoalOld$$ = {
+    18, -18}, $CellContext`goalRadius$$ = 1, $CellContext`goalRadiusOld$$ = 
+    1, $CellContext`newrand$$ = {}, $CellContext`nodestoadd$$ = 
+    0, $CellContext`obstacles$$ = 
+    "narrow passage", $CellContext`obstaclesold$$ = 
+    "narrow passage", $CellContext`path$$ = {}, $CellContext`reachGoal$$ = 
+    False, $CellContext`treeType$$ = "RRT", $CellContext`treeTypeOld$$ = 
+    "RRT", $CellContext`verts$$ = {{{0., 0.}, 0, 1, 0, {}}}, Typeset`show$$ = 
+    True, Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`finalGoal$$], {18, -18}}, {-19, -19}, {19, 19}}, {{
+       Hold[$CellContext`finalGoalOld$$], {10, 10}}}, {
+      Hold["tree type"], Manipulate`Dump`ThisIsNotAControl}, {{
+       Hold[$CellContext`treeType$$], "RRT", ""}, {
+      "Random Tree", "RRT", "\!\(\*SuperscriptBox[\(RRT\), \(*\)]\)"}}, {
+      Hold[""], Manipulate`Dump`ThisIsNotAControl}, {
+      Hold[$CellContext`treeTypeOld$$], 0}, {
+      Hold[$CellContext`newrand$$], {}}, {
+      Hold[$CellContext`verts$$], {{{0., 0.}, 0, 1, 0, {}}}}, {
+      Hold[$CellContext`path$$], {}}, {
+      Hold[$CellContext`cost$$], {}}, {
+      Hold[$CellContext`nodestoadd$$], 0}, {
+      Hold[$CellContext`reachGoal$$], False}, {
+      Hold["obstacle type"], Manipulate`Dump`ThisIsNotAControl}, {{
+       Hold[$CellContext`obstacles$$], "narrow passage", ""}, {
+      "none", "sparse", "narrow passage", "concave"}}, {
+      Hold[""], Manipulate`Dump`ThisIsNotAControl}, {
+      Hold[$CellContext`obstaclesold$$], {}}, {
+      Hold["number of nodes to add:"], Manipulate`Dump`ThisIsNotAControl}, {
+      Hold[
+       ButtonBar[{
+        "1" :> AddTo[$CellContext`nodestoadd$$, 1], "10" :> 
+         AddTo[$CellContext`nodestoadd$$, 10], "100" :> 
+         AddTo[$CellContext`nodestoadd$$, 100], "200" :> 
+         AddTo[$CellContext`nodestoadd$$, 200], "500" :> 
+         AddTo[$CellContext`nodestoadd$$, 500]}]], 
+      Manipulate`Dump`ThisIsNotAControl}, {
+      Hold[""], Manipulate`Dump`ThisIsNotAControl}, {
+      Hold["exploration bias"], Manipulate`Dump`ThisIsNotAControl}, {{
+       Hold[$CellContext`explorationBias$$], 0, ""}, 0, 0.9, 0.05}, {
+      Hold[""], Manipulate`Dump`ThisIsNotAControl}, {
+      Hold["goal radius"], Manipulate`Dump`ThisIsNotAControl}, {{
+       Hold[$CellContext`goalRadius$$], 1, ""}, 0, 5, 0.1}, {
+      Hold[$CellContext`goalRadiusOld$$], -1}}, Typeset`size$$ = {
+    400., {206.65784272693452`, 212.38977632068452`}}, Typeset`update$$ = 0, 
+    Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    False, $CellContext`finalGoal$56305$$ = {0, 
+    0}, $CellContext`treeType$56306$$ = 0, $CellContext`verts$56307$$ = 
+    False, $CellContext`obstacles$56308$$ = 
+    0, $CellContext`explorationBias$56309$$ = 
+    0, $CellContext`goalRadius$56310$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`cost$$ = {}, \
+$CellContext`explorationBias$$ = 
+        0, $CellContext`finalGoal$$ = {
+         18, -18}, $CellContext`finalGoalOld$$ = {10, 
+         10}, $CellContext`goalRadius$$ = 
+        1, $CellContext`goalRadiusOld$$ = -1, $CellContext`newrand$$ = {}, \
+$CellContext`nodestoadd$$ = 0, $CellContext`obstacles$$ = 
+        "narrow passage", $CellContext`obstaclesold$$ = {}, \
+$CellContext`path$$ = {}, $CellContext`reachGoal$$ = 
+        False, $CellContext`treeType$$ = "RRT", $CellContext`treeTypeOld$$ = 
+        0, $CellContext`verts$$ = {{0., 0.}, 0, 1, 0, {}}}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`finalGoal$$, $CellContext`finalGoal$56305$$, {0, 
+         0}], 
+        Hold[$CellContext`treeType$$, $CellContext`treeType$56306$$, 0], 
+        Hold[$CellContext`verts$$, $CellContext`verts$56307$$, False], 
+        Hold[$CellContext`obstacles$$, $CellContext`obstacles$56308$$, 0], 
+        Hold[$CellContext`explorationBias$$, \
+$CellContext`explorationBias$56309$$, 0], 
+        Hold[$CellContext`goalRadius$$, $CellContext`goalRadius$56310$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> 
+      Module[{$CellContext`addNode$, $CellContext`waypoint$, \
+$CellContext`updateCostToGo$, $CellContext`idx$, $CellContext`i$, \
+$CellContext`rrtDist$ = 3, $CellContext`obsedges$ = 
+         Piecewise[{{{{{5, 10}, {6, 10}, {6, 21}, {5, 21}}, {{5, 5}, {6, 5}, {
+             6, -21}, {5, -21}}, {{-5, -7}, {-6, -7}, {-6, 21}, {-5, 
+             21}}, {{-5, -9}, {-6, -9}, {-6, -21}, {-5, -21}}}, \
+$CellContext`obstacles$$ == 
+             "narrow passage"}, {{{{1, 1}, {1, 17}, {17, 17}, {17, 1}}, {{-1, 
+              1}, {-1, 17}, {-17, 17}, {-17, 1}}, {{1, -1}, {1, -17}, {
+              17, -17}, {
+              17, -1}}, -{{1, 1}, {1, 17}, {17, 17}, {17, 
+               1}}}, $CellContext`obstacles$$ == "sparse"}, {{{{5, 3}, {-6, 
+             3}, {-6, 4}, {6, 4}, {6, -4}, {-6, -4}, {-6, -3}, {
+             5, -3}}}, $CellContext`obstacles$$ == 
+             "concave"}, {{}, $CellContext`obstacles$$ == "none"}}]}, If[
+          
+          Or[$CellContext`finalGoalOld$$ != $CellContext`finalGoal$$, \
+$CellContext`goalRadiusOld$$ != $CellContext`goalRadius$$], \
+$CellContext`reachGoal$$ = 
+           False; $CellContext`path$$ = {}; $CellContext`finalGoalOld$$ = \
+$CellContext`finalGoal$$; $CellContext`goalRadiusOld$$ = \
+$CellContext`goalRadius$$; Null]; If[
+          
+          Or[$CellContext`treeTypeOld$$ != $CellContext`treeType$$, \
+$CellContext`obstaclesold$$ != $CellContext`obstacles$$], \
+$CellContext`treeTypeOld$$ = $CellContext`treeType$$; \
+$CellContext`obstaclesold$$ = $CellContext`obstacles$$; $CellContext`verts$$ = \
+{{{0., 0.}, 0, 1, 
+              0, {}}}; $CellContext`path$$ = {}; $CellContext`newrand$$ = {}; \
+$CellContext`reachGoal$$ = False; Null]; $CellContext`addNode$[
+           Pattern[$CellContext`treeType$, 
+            Blank[]], 
+           Pattern[$CellContext`obsedges$, 
+            Blank[]]] := 
+         Module[{$CellContext`p$, $CellContext`nvidx$, $CellContext`nv$, \
+$CellContext`np$, $CellContext`parent$, $CellContext`success$ = 
+            False, $CellContext`collision$, $CellContext`nvs$, \
+$CellContext`nn$, $CellContext`ppos$, $CellContext`newdist$, \
+$CellContext`eucDist$, $CellContext`vs$, $CellContext`nodesNearGoal$}, 
+           While[$CellContext`success$ == False, 
+              If[RandomReal[] < $CellContext`explorationBias$$, \
+$CellContext`p$ = $CellContext`finalGoal$$, $CellContext`p$ = Round[
+                  RandomReal[{-20., 20.}, 2], 0.01]]; If[
+                
+                Or[$CellContext`treeType$ == "RRT", $CellContext`treeType$ == 
+                 "\!\(\*SuperscriptBox[\(RRT\), \(*\)]\)"], $CellContext`nv$ = 
+                First[
+                  Nearest[
+                   Part[$CellContext`verts$$, 
+                    Span[1, All], 1], $CellContext`p$]], $CellContext`nv$ = 
+                Part[$CellContext`verts$$, 
+                  RandomInteger[{1, 
+                    Length[$CellContext`verts$$]}], 1]]; $CellContext`parent$ = 
+               First[
+                 Flatten[
+                  Position[
+                   Part[$CellContext`verts$$, 
+                    Span[1, All], 
+                    1], $CellContext`nv$]]]; $CellContext`np$ = \
+$CellContext`nv$ + 
+                If[Norm[$CellContext`p$ - $CellContext`nv$] > 1, 1 
+                  Normalize[$CellContext`p$ - $CellContext`nv$], \
+$CellContext`p$ - $CellContext`nv$]; 
+              If[$CellContext`treeType$ == 
+                "\!\(\*SuperscriptBox[\(RRT\), \(*\)]\)", 
+                
+                Module[{$CellContext`dists$, $CellContext`indexMinDist$}, \
+$CellContext`nvs$ = Nearest[
+                    Part[$CellContext`verts$$, 
+                    Span[1, All], 1], $CellContext`np$, {
+                    All, $CellContext`rrtDist$}]; $CellContext`eucDist$ = 
+                  Table[
+                    If[
+                    Not[
+                    $CellContext`inCollision[$CellContext`vs$, \
+$CellContext`np$, $CellContext`obsedges$]], 
+                    EuclideanDistance[$CellContext`vs$, $CellContext`np$], 
+                    Infinity], {$CellContext`vs$, $CellContext`nvs$}]; \
+$CellContext`dists$ = Table[
+                    Part[$CellContext`verts$$, 
+                    First[
+                    Flatten[
+                    Position[
+                    Part[$CellContext`verts$$, 
+                    Span[1, All], 1], $CellContext`vs$]]], 
+                    4], {$CellContext`vs$, $CellContext`nvs$}]; \
+$CellContext`indexMinDist$ = First[
+                    
+                    Ordering[$CellContext`dists$ + $CellContext`eucDist$, 
+                    1]]; $CellContext`parent$ = First[
+                    Flatten[
+                    Position[
+                    Part[$CellContext`verts$$, 
+                    Span[1, All], 1], 
+                    
+                    Part[$CellContext`nvs$, $CellContext`indexMinDist$]]]]; \
+$CellContext`nv$ = Part[$CellContext`verts$$, $CellContext`parent$, 1]; 
+                 Null]]; $CellContext`success$ = Not[
+                 $CellContext`inCollision[$CellContext`nv$, $CellContext`np$, \
+$CellContext`obsedges$]]; Null] 
+            AppendTo[$CellContext`verts$$, {$CellContext`np$, \
+$CellContext`parent$, Length[$CellContext`verts$$] + 1, 
+               Part[$CellContext`verts$$, $CellContext`parent$, 4] + 
+               EuclideanDistance[$CellContext`nv$, $CellContext`np$], {}}]; 
+           Part[$CellContext`verts$$, $CellContext`parent$, 5] = Append[
+              Part[$CellContext`verts$$, $CellContext`parent$, 5], 
+              Length[$CellContext`verts$$]]; 
+           If[$CellContext`treeType$ == 
+             "\!\(\*SuperscriptBox[\(RRT\), \(*\)]\)", 
+             
+             Table[$CellContext`vs$ = 
+               Part[$CellContext`nvs$, $CellContext`n]; $CellContext`nn$ = 
+               First[
+                 Flatten[
+                  Position[
+                   Part[$CellContext`verts$$, 
+                    Span[1, All], 
+                    1], $CellContext`vs$]]]; $CellContext`newdist$ = 
+               Part[$CellContext`verts$$, -1, 4] + 
+                Part[$CellContext`eucDist$, $CellContext`n]; 
+              If[Part[$CellContext`verts$$, $CellContext`nn$, 
+                  4] > $CellContext`newdist$, $CellContext`ppos$ = Position[
+                   Part[$CellContext`verts$$, 
+                    Part[$CellContext`verts$$, $CellContext`nn$, 2], 
+                    5], $CellContext`nn$]; Part[$CellContext`verts$$, 
+                   Part[$CellContext`verts$$, $CellContext`nn$, 2], 5] = 
+                 Delete[
+                   Part[$CellContext`verts$$, 
+                    Part[$CellContext`verts$$, $CellContext`nn$, 2], 
+                    5], $CellContext`ppos$]; 
+                Part[$CellContext`verts$$, $CellContext`nn$, 2] = 
+                 Length[$CellContext`verts$$]; 
+                Part[$CellContext`verts$$, $CellContext`nn$, 
+                   4] = $CellContext`newdist$; 
+                Part[$CellContext`verts$$, -1, 5] = Append[
+                   
+                   Part[$CellContext`verts$$, -1, 
+                    5], $CellContext`nn$]; \
+$CellContext`updateCostToGo$[$CellContext`nn$]; Null], {$CellContext`n, 
+               
+               Length[$CellContext`nvs$]}]]; $CellContext`p$]; \
+$CellContext`updateCostToGo$[
+           Pattern[$CellContext`index$, 
+            Blank[]]] := 
+         Module[{$CellContext`parent$ = 
+            Part[$CellContext`verts$$, $CellContext`index$, 2]}, 
+           
+           If[$CellContext`parent$ != 0, 
+            Part[$CellContext`verts$$, $CellContext`index$, 4] = 
+             Part[$CellContext`verts$$, $CellContext`parent$, 4] + 
+              EuclideanDistance[
+                Part[$CellContext`verts$$, $CellContext`parent$, 1], 
+                Part[$CellContext`verts$$, $CellContext`index$, 1]]; Table[
+              $CellContext`updateCostToGo$[$CellContext`ind], \
+{$CellContext`ind, 
+               Part[$CellContext`verts$$, $CellContext`index$, 5]}]; Null]]; 
+        If[$CellContext`nodestoadd$$ > 
+          0, $CellContext`newrand$$ = \
+$CellContext`addNode$[$CellContext`treeType$$, $CellContext`obsedges$]; 
+          SubtractFrom[$CellContext`nodestoadd$$, 
+            1]; $CellContext`reachGoal$$ = False]; 
+        While[$CellContext`nodestoadd$$ > 
+          5, $CellContext`newrand$$ = \
+$CellContext`addNode$[$CellContext`treeType$$, $CellContext`obsedges$]; 
+          SubtractFrom[$CellContext`nodestoadd$$, 1]; Null]; 
+        If[$CellContext`reachGoal$$ == 
+          False, {$CellContext`idx$ = Nearest[Part[$CellContext`verts$$, 
+                Span[1, All], 1] -> Automatic, $CellContext`finalGoal$$, {
+              All, $CellContext`goalRadius$$}]; 
+           If[Length[$CellContext`idx$] > 
+             0, {$CellContext`cost$$ = 10000; 
+              For[$CellContext`i$ = 0, $CellContext`i$ < 
+                Length[$CellContext`idx$], Increment[$CellContext`i$]; 
+                If[Part[$CellContext`verts$$, 
+                    Part[$CellContext`idx$, $CellContext`i$], 
+                    4] < $CellContext`cost$$, {$CellContext`waypoint$ = 
+                    Part[$CellContext`verts$$, 
+                    Part[$CellContext`idx$, $CellContext`i$], 
+                    Span[1, 2]]; $CellContext`cost$$ = 
+                    Part[$CellContext`verts$$, 
+                    Part[$CellContext`idx$, $CellContext`i$], 4]}]; 
+                Null]; $CellContext`path$$ = {$CellContext`waypoint$}; 
+              While[Part[$CellContext`path$$, 
+                  Length[$CellContext`path$$], 2] != 
+                0, {$CellContext`waypoint$ = Part[$CellContext`verts$$, 
+                    Part[$CellContext`path$$, 
+                    Length[$CellContext`path$$], 2], 
+                    Span[1, 2]]; 
+                  AppendTo[$CellContext`path$$, $CellContext`waypoint$]; 
+                  Null}; Null]; $CellContext`reachGoal$$ = True; Null}]; 
+           Null}]; Graphics[{White, 
+           Rectangle[(-20) {1, 1}, 20 {1, 1}], {
+            If[$CellContext`reachGoal$$, Green, Yellow], 
+            Disk[$CellContext`finalGoal$$, $CellContext`goalRadius$$]}, {
+           Yellow, 
+            PointSize[Large], 
+            Point[$CellContext`finalGoal$$]}, {Blue, 
+            Rectangle[{-21, -21}, {-20, 21}], 
+            Rectangle[{20, -21}, {21, 21}], 
+            Rectangle[{-21, -21}, {21, -20}], 
+            Rectangle[{-21, 20}, {21, 21}], 
+            Table[
+             Polygon[
+              
+              Part[$CellContext`obsedges$, $CellContext`i$]], \
+{$CellContext`i$, 1, 
+              Length[$CellContext`obsedges$]}]}, {Thin, Black, 
+            Table[
+             Line[{
+               Part[$CellContext`verts$$, $CellContext`n, 1], 
+               Part[$CellContext`verts$$, 
+                Part[$CellContext`verts$$, $CellContext`n, 2], 
+                1]}], {$CellContext`n, 2, 
+              Length[$CellContext`verts$$]}]}, {
+            If[Length[$CellContext`verts$$] > 1, {Dashed, Black, 
+              Line[{
+                Part[
+                 Last[$CellContext`verts$$], 1], $CellContext`newrand$$}], 
+              Blue, 
+              PointSize[Large], 
+              Point[
+               Part[
+                Last[$CellContext`verts$$], 1]]}]}, Red, 
+           PointSize[Medium], 
+           Table[
+            Tooltip[
+             Point[
+              Part[$CellContext`verts$$, $CellContext`n, 1]], 
+             Part[$CellContext`verts$$, $CellContext`n, 4]], {$CellContext`n, 
+             
+             Length[$CellContext`verts$$]}], Green, 
+           PointSize[Large], 
+           Point[$CellContext`newrand$$], {
+            If[$CellContext`reachGoal$$, {Thick, 
+              Darker[Green], 
+              Line[
+               Part[$CellContext`path$$, 
+                Span[1, All], 1]]}]}, {Black, 
+            Text[
+             Style[
+              StringForm["``, ``", 
+               If[Length[$CellContext`verts$$] == 1, "1 node", 
+                StringForm["`` nodes", 
+                 Length[$CellContext`verts$$]]], 
+               If[$CellContext`reachGoal$$, 
+                StringForm["path length ``", 
+                 Round[$CellContext`cost$$, 0.01]], "goal not yet reached"]], 
+              18], {0, 22}]}}, ImageSize -> 400, 
+          PlotRange -> {{-21, 21}, {-21, 23}}]], 
+      "Specifications" :> {{{$CellContext`finalGoal$$, {
+          18, -18}}, {-19, -19}, {19, 19}, ControlType -> 
+         Locator}, {{$CellContext`finalGoalOld$$, {10, 10}}, ControlType -> 
+         None}, "tree type", {{$CellContext`treeType$$, "RRT", ""}, {
+         "Random Tree", "RRT", "\!\(\*SuperscriptBox[\(RRT\), \(*\)]\)"}}, 
+        "", {$CellContext`treeTypeOld$$, 0, ControlType -> 
+         None}, {$CellContext`newrand$$, {}, ControlType -> 
+         None}, {$CellContext`verts$$, {{{0., 0.}, 0, 1, 0, {}}}, ControlType -> 
+         None}, {$CellContext`path$$, {}, ControlType -> 
+         None}, {$CellContext`cost$$, {}, ControlType -> 
+         None}, {$CellContext`nodestoadd$$, 0, ControlType -> 
+         None}, {$CellContext`reachGoal$$, False, ControlType -> None}, 
+        "obstacle type", {{$CellContext`obstacles$$, "narrow passage", ""}, {
+         "none", "sparse", "narrow passage", "concave"}, ControlType -> 
+         PopupMenu}, 
+        "", {$CellContext`obstaclesold$$, {}, ControlType -> None}, 
+        "number of nodes to add:", 
+        ButtonBar[{
+         "1" :> AddTo[$CellContext`nodestoadd$$, 1], "10" :> 
+          AddTo[$CellContext`nodestoadd$$, 10], "100" :> 
+          AddTo[$CellContext`nodestoadd$$, 100], "200" :> 
+          AddTo[$CellContext`nodestoadd$$, 200], "500" :> 
+          AddTo[$CellContext`nodestoadd$$, 500]}], "", 
+        "exploration bias", {{$CellContext`explorationBias$$, 0, ""}, 0, 0.9, 
+         0.05, ControlType -> Slider, ImageSize -> 80, Appearance -> 
+         "Labeled"}, "", 
+        "goal radius", {{$CellContext`goalRadius$$, 1, ""}, 0, 5, 0.1, 
+         ControlType -> Slider, ImageSize -> 80, Appearance -> 
+         "Labeled"}, {$CellContext`goalRadiusOld$$, -1, ControlType -> None}},
+       "Options" :> {ControlPlacement -> Left}, 
+      "DefaultOptions" :> {ControllerLinking -> True}],
+     ImageSizeCache->{623., {240.6875, 246.3125}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    Initialization:>({$CellContext`inCollision[
+         Pattern[$CellContext`nv, 
+          Blank[]], 
+         Pattern[$CellContext`np, 
+          Blank[]], 
+         Pattern[$CellContext`obsedges, 
+          Blank[]]] := 
+       Module[{$CellContext`i, $CellContext`collision}, \
+$CellContext`collision = False; For[$CellContext`i = 1, 
+           
+           And[$CellContext`collision != True, $CellContext`i <= 
+            Length[$CellContext`obsedges]], 
+           Increment[$CellContext`i], 
+           If[
+            $CellContext`ptInPoly[
+             
+             Part[$CellContext`obsedges, $CellContext`i], $CellContext`np], \
+$CellContext`collision = True]]; For[$CellContext`i = 1, 
+           
+           And[$CellContext`collision != True, $CellContext`i <= 
+            Length[$CellContext`obsedges]], 
+           Increment[$CellContext`i], Map[If[
+              $CellContext`segmentIntersectionQ[{{$CellContext`nv, \
+$CellContext`np}, #}], $CellContext`collision = True]& , 
+             Partition[
+              Append[
+               Part[$CellContext`obsedges, $CellContext`i], 
+               Part[$CellContext`obsedges, $CellContext`i, 1]], 2, 1]]; 
+           Null]; $CellContext`collision], $CellContext`ptInPoly[
+         Pattern[$CellContext`poly, 
+          Blank[]], 
+         Pattern[$CellContext`pt, 
+          Blank[]]] := (Apply[Equal, #]& )[
+         (Map[Apply[$CellContext`angtest, #]& , #]& )[
+          Transpose[
+           ({#, 
+            RotateLeft[#]}& )[
+            (
+            Map[# - $CellContext`pt& , #]& )[$CellContext`poly]]]]], \
+$CellContext`angtest[
+         Pattern[$CellContext`p1, {
+           Pattern[$CellContext`x1, 
+            Blank[]], 
+           Pattern[$CellContext`y1, 
+            Blank[]]}], 
+         Pattern[$CellContext`p2, {
+           Pattern[$CellContext`x2, 
+            Blank[]], 
+           Pattern[$CellContext`y2, 
+            Blank[]]}]] := 
+       Dot[$CellContext`p1, {{0, -1}, {1, 0}}, $CellContext`p2] > 
+        0, $CellContext`segmentIntersectionQ[{
+          Pattern[$CellContext`p1, {
+            Pattern[$CellContext`a, 
+             Blank[]], 
+            Pattern[$CellContext`b, 
+             Blank[]]}], 
+          Pattern[$CellContext`p2, {
+            Pattern[$CellContext`c, 
+             Blank[]], 
+            Pattern[$CellContext`d, 
+             Blank[]]}]}] := 
+       If[Det[{$CellContext`a - $CellContext`b, $CellContext`c - \
+$CellContext`d}] == 0, False, 
+         Module[{$CellContext`p = \
+$CellContext`lineIntersectionPoint[{$CellContext`p1, $CellContext`p2}]}, 
+          And[
+          0 <= $CellContext`\[Lambda][$CellContext`p1][$CellContext`p] <= 1, 
+           0 <= $CellContext`\[Lambda][$CellContext`p2][$CellContext`p] <= 
+           1]]], $CellContext`lineIntersectionPoint[{{
+           Pattern[$CellContext`a, 
+            Blank[]], 
+           Pattern[$CellContext`b, 
+            Blank[]]}, {
+           Pattern[$CellContext`c, 
+            Blank[]], 
+           Pattern[$CellContext`d, 
+            Blank[]]}}] := (
+         Det[{$CellContext`a, $CellContext`b}] ($CellContext`c - \
+$CellContext`d) - 
+         Det[{$CellContext`c, $CellContext`d}] ($CellContext`a - \
+$CellContext`b))/
+        Det[{$CellContext`a - $CellContext`b, $CellContext`c - \
+$CellContext`d}], $CellContext`\[Lambda][{
+          Pattern[$CellContext`a, 
+           Blank[]], 
+          Pattern[$CellContext`b, 
+           Blank[]]}][
+         Pattern[$CellContext`p, 
+          Blank[]]] := 
+       Dot[$CellContext`a - $CellContext`p, $CellContext`a - $CellContext`b]/
+        Dot[$CellContext`a - $CellContext`b, $CellContext`a - $CellContext`b],
+        Attributes[PlotRange] = {ReadProtected}}; Typeset`initDone$$ = True),
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ ShowCellBracket->False,
+ CellMargins->{{1, 1}, {1, 1}},
+ TaggingRules->{},
+ ShowCellLabel->False,
+ CellChangeTimes->{3.724782386183612*^9, 3.724782880273972*^9, 
+  3.7247829260379667`*^9},
+ TextAlignment->Left,
+ CellID->932296555,ExpressionUUID->"6e741963-41c7-4bdf-bfd3-0936716f2905"]
+},
+ScreenStyleEnvironment->"Working",
+ShowCellBracket->False,
+FrontEndVersion->"14.0 for Linux x86 (64-bit) (December 12, 2023)",
+StyleDefinitions->Notebook[{
+   Cell[
+    StyleData[StyleDefinitions -> "Default.nb"]], 
+   Cell[
+    StyleData["Text"], CellMargins -> {{1, 1}, {7, 8}}, FontSize -> 14]}, 
+  Visible -> False, FrontEndVersion -> 
+  "14.0 for Linux x86 (64-bit) (December 12, 2023)", StyleDefinitions -> 
+  "PrivateStylesheetFormatting.nb"],
+ExpressionUUID->"90518033-b39b-4543-81a0-f7db8ea45285"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 23271, 474, 70, "Output",ExpressionUUID->"6e741963-41c7-4bdf-bfd3-0936716f2905",
+ CellID->932296555]
+}
+]
+*)
+
+(* End of internal cache information *)
