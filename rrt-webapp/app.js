@@ -55,7 +55,11 @@ function segmentIntersectionQ(a, b, c, d) {
   if (det([a[0] - b[0], a[1] - b[1]], [c[0] - d[0], c[1] - d[1]]) === 0) return false;
   const p = lineIntersectionPoint(a, b, c, d);
   const l1 = lambda(a, b, p), l2 = lambda(c, d, p);
-  return 0 <= l1 && l1 <= 1 && 0 <= l2 && l2 <= 1;
+  // small tolerance so a segment that merely touches an edge (e.g. a sample landing
+  // exactly on y=3 or y=-4) counts as a hit despite floating-point round-off
+  const EPS = 1e-9;
+  return -EPS <= l1 && l1 <= 1 + EPS && -EPS <= l2 && l2 <= 1 + EPS;
+  // return 0 <= l1 && l1 <= 1 && 0 <= l2 && l2 <= 1;
 }
 
 // inCollision[nv, np, obsedges]: np inside a polygon, or segment nv-np crosses an edge.
