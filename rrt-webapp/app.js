@@ -59,7 +59,6 @@ function segmentIntersectionQ(a, b, c, d) {
   // exactly on y=3 or y=-4) counts as a hit despite floating-point round-off
   const EPS = 1e-9;
   return -EPS <= l1 && l1 <= 1 + EPS && -EPS <= l2 && l2 <= 1 + EPS;
-  // return 0 <= l1 && l1 <= 1 && 0 <= l2 && l2 <= 1;
 }
 
 // inCollision[nv, np, obsedges]: np inside a polygon, or segment nv-np crosses an edge.
@@ -163,6 +162,7 @@ function addNode(obsedges) {
 
     const diffv = [p[0] - nvPos[0], p[1] - nvPos[1]];
     const dn = Math.hypot(diffv[0], diffv[1]);
+    if (dn === 0) continue;   // sample coincides with an existing node: would add a duplicate
     np = dn > STEP
       ? [nvPos[0] + STEP * diffv[0] / dn, nvPos[1] + STEP * diffv[1] / dn]
       : p.slice();
@@ -424,6 +424,8 @@ radiusSlider.addEventListener("input", () => {
   state.reachGoal = false;   // goalRadiusOld change clears the path in the original
   state.path = [];
   document.getElementById("radiusOut").textContent = state.goalRadius;
+  checkGoal();
+  draw();
 });
 
 document.querySelectorAll("[data-add]").forEach(btn => {
@@ -466,6 +468,7 @@ canvas.addEventListener("pointermove", e => {
     state.goal = [Math.max(-19, Math.min(19, w[0])), Math.max(-19, Math.min(19, w[1]))];
     state.reachGoal = false;
     state.path = [];
+    checkGoal();
     draw();
   } else {
     // tooltip: nearest red node within a small radius
@@ -477,8 +480,8 @@ canvas.addEventListener("pointermove", e => {
     if (best) {
       const r = canvas.getBoundingClientRect();
       const [px, py] = toPx(best.pos[0], best.pos[1]);
-      tooltip.style.left = (px * r.width / canvas.width) + "px";
-      tooltip.style.top = (py * r.height / canvas.height) + "px";
+      tooltip.style.left = (canvas.offsetLeft + px * r.width / canvas.width) + "px";
+      tooltip.style.top = (canvas.offsetTop + py * r.height / canvas.height) + "px";
       tooltip.textContent = Math.round(best.cost * 100) / 100;
       tooltip.style.display = "block";
     } else {
