@@ -77,6 +77,23 @@ function inCollision(nv, np, obsedges) {
   return collision;
 }
 
+// goalInObstacle: true if pt lies inside (or on the edge of) any obstacle polygon of the
+// current obstacle type. Even-odd ray casting, so it also works for the concave polygon
+// (ptInPoly above is only valid for convex shapes).
+function goalInObstacle(pt) {
+  const obs = OBSTACLES[state.obstacleType];
+  for (const poly of obs) {
+    let inside = false;
+    for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+      const a = poly[i], b = poly[j];
+      if ((a[1] > pt[1]) !== (b[1] > pt[1]) &&
+          pt[0] < (b[0] - a[0]) * (pt[1] - a[1]) / (b[1] - a[1]) + a[0]) inside = !inside;
+    }
+    if (inside) return true;
+  }
+  return false;
+}
+
 // ---------- obstacle sets (verbatim from the notebook) ----------
 
 const OBSTACLES = {
@@ -413,7 +430,12 @@ const radiusSlider = document.getElementById("goalRadius");
 const autoBtn = document.getElementById("toggleAuto");
 
 treeSel.addEventListener("change", () => { state.treeType = treeSel.value; resetTree(); draw(); });
-obsSel.addEventListener("change", () => { state.obstacleType = obsSel.value; resetTree(); draw(); });
+obsSel.addEventListener("change", () => {
+  state.obstacleType = obsSel.value;
+  if (goalInObstacle(state.goal)) state.goal = [18, -18];   // new walls cover the goal: move it back to its start spot
+  resetTree();
+  draw();
+});
 
 biasSlider.addEventListener("input", () => {
   state.explorationBias = parseFloat(biasSlider.value);
@@ -465,7 +487,9 @@ canvas.addEventListener("pointerdown", e => {
 canvas.addEventListener("pointermove", e => {
   const w = eventWorld(e);
   if (dragging) {
-    state.goal = [Math.max(-19, Math.min(19, w[0])), Math.max(-19, Math.min(19, w[1]))];
+    const g = [Math.max(-19, Math.min(19, w[0])), Math.max(-19, Math.min(19, w[1]))];
+    if (goalInObstacle(g)) return;   // goal can't be dropped inside a blue wall; keep last valid spot
+    state.goal = g;
     state.reachGoal = false;
     state.path = [];
     checkGoal();
